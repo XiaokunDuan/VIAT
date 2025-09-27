@@ -1,0 +1,6 @@
+# ninja log v7
+1	28419	1758999958671356176	/hy-tmp/VIAT/models/csrc/build/temp.linux-x86_64-3.8/binding.o	dee8a466da77e7ef
+1	64307	1758999958671356176	/hy-tmp/VIAT/models/csrc/build/temp.linux-x86_64-3.8/intersection.o	7fedcfee34d86d68
+2	66546	1758999958671356176	/hy-tmp/VIAT/models/csrc/build/temp.linux-x86_64-3.8/raymarching.o	7810766764f8f035
+3	74716	1758999958671356176	/hy-tmp/VIAT/models/csrc/build/temp.linux-x86_64-3.8/volumerendering.o	3599be29a58167da
+2	81997	1758999958671356176	/hy-tmp/VIAT/models/csrc/build/temp.linux-x86_64-3.8/losses.o	9fc0eaf3f3d0d14c
