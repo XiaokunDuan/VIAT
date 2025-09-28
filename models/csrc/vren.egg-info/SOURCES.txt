@@ -4,6 +4,7 @@ losses.cu
 raymarching.cu
 setup.py
 volumerendering.cu
+dist/vren-2.0-py3.8-linux-x86_64.egg
 include/helper_math.h
 include/utils.h
 vren.egg-info/PKG-INFO

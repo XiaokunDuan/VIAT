@@ -1,0 +1,72 @@
+# ===================================================================
+# Python Cache and Environment Files
+# ===================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Conda environment file (often machine-specific)
+# It's better to keep the `requirements.txt` or a clean `environment.yml`
+# viat_env.yml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Build artifacts
+build/
+dist/
+downloads/
+eggs/
+*.egg-info/
+.eggs/
+
+# ===================================================================
+# IDE and Editor specific files
+# ===================================================================
+.vscode/
+.idea/
+*.swp
+*~
+
+# ===================================================================
+# Project-Specific Outputs & Large Files
+# ===================================================================
+# Training logs and saved models. These are generated outputs.
+# The `run_train_nerf` directory seems to be the main output location.
+run_train_nerf/ckpts/
+run_train_nerf/logs/
+run_train_nerf/results/
+
+# Any large dataset files. It's better to document how to obtain them
+# than to commit them directly to Git.
+# Assuming GMFool_dataset is too large for the repository.
+datasets/GMFool_dataset/
+
+# Zip files are typically not version controlled.
+*.zip
+
+# ===================================================================
+# C++/CUDA Compiled Libraries
+# ===================================================================
+# These are built locally and are specific to the user's OS/environment.
+# The source code is already in the repo.
+models/csrc/build/
+models/csrc/*.egg-info/
+models/csrc/*.so
+tiny-cuda-nn/build/
+tiny-cuda-nn/bindings/torch/build/
+tiny-cuda-nn/bindings/torch/*.egg-info/
+tiny-cuda-nn/bindings/torch/*.so
+apex/build/
+apex/*.egg-info/
+
+# ===================================================================
+# Miscellaneous
+# ===================================================================
+# Any other generated files
+collected_files.txt
+
+# OS-specific files
+.DS_Store
+Thumbs.db
