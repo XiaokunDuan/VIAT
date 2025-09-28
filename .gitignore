@@ -42,6 +42,7 @@ run_train_nerf/results/
 # than to commit them directly to Git.
 # Assuming GMFool_dataset is too large for the repository.
 datasets/GMFool_dataset/
+datasets/ImageNet-V+/
 
 # Zip files are typically not version controlled.
 *.zip

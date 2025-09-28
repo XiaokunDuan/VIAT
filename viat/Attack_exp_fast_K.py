@@ -366,7 +366,7 @@ def get_black_model(model_name):
 
     if model_name == 'resnet50':
         model = torchvision.models.resnet50(pretrained=False)
-        checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-res50-epoch120.pt'
+        checkpoint = '/hy-tmp/VIAT/model-imagenet-100-ckpts/model-res50-epoch120.pt'
         #----------------------------------------------
         num_ftr = model.fc.in_features
         model.fc = nn.Linear(num_ftr,100)
