@@ -14,24 +14,22 @@ source activate fastNeRF
 
 # python train.py --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/Synthetic_NeRF/Hotdog' --exp_name 'ngp_hotdog' --num_epochs 20 --batch_size 16384 --lr 2e-2
 
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_01 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_02 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_01' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_03 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_02' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_04 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_03' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_05 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_04' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_06 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_05' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_07 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_06' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_08 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_07' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_09 --exp_name 'new/train/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
 
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_08' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
-
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_09' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
-
-python train.py --dataset_name nerf --root_dir '/data/home/run/scv7303/rsw_/NeRFAttack/ngp_pl/dataset_source/GMFool_dataset/sign_10' --exp_name 'new/88' --num_epochs 5 --batch_size 16384 --lr 2e-2
+PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py  --dataset_name nerf --root_dir ../datasets/GMFool_dataset/sign_10 --exp_name 'new/test/88' --num_epochs 10 --batch_size 16384 --lr 2e-2
