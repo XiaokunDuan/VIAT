@@ -19,7 +19,7 @@ OUTPUT_ROOT=/hy-tmp/VIAT_outputs
 # 01 02 03 04 05 06 07 08
 
 #list=(01 03 04 06 07 08 10 12)
-list=(01)
+list=(01 03)
 num=0
 
 for j in airliner rifle
@@ -33,7 +33,7 @@ do
             --dataset_name nerf \
             --root_dir /hy-tmp/GMFool_dataset/${j}_${i}  \
             --exp_name new/train/${list[$num]} \
-            --num_epochs 3 \
+            --num_epochs 10 \
             --batch_size 16384 \
             --lr 1e-2
     done
@@ -45,7 +45,7 @@ do
             --dataset_name nerf \
             --root_dir /hy-tmp/GMFool_dataset/${j}_${i}  \
             --exp_name new/test/${list[$num]} \
-            --num_epochs 3 \
+            --num_epochs 10 \
             --batch_size 16384 \
             --lr 1e-2
     done
