@@ -1,0 +1,1092 @@
+云端服务器环境快照 - 生成于: Fri Oct  3 03:16:25 UTC 2025
+======================================================================
+
+--- [ 2.1 系统与硬件信息 ] ---
+>>> OS Version:
+NAME="Ubuntu"
+VERSION="20.04.5 LTS (Focal Fossa)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 20.04.5 LTS"
+VERSION_ID="20.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=focal
+UBUNTU_CODENAME=focal
+
+>>> Kernel Version:
+Linux I24237c70b1001015dc 5.4.0-146-generic #163-Ubuntu SMP Fri Mar 17 18:26:02 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+>>> CPU Info:
+Architecture:                    x86_64
+CPU op-mode(s):                  32-bit, 64-bit
+Byte Order:                      Little Endian
+Address sizes:                   46 bits physical, 48 bits virtual
+CPU(s):                          32
+On-line CPU(s) list:             0-31
+Thread(s) per core:              2
+Core(s) per socket:              16
+Socket(s):                       1
+NUMA node(s):                    1
+Vendor ID:                       GenuineIntel
+CPU family:                      6
+Model:                           79
+Model name:                      Intel(R) Xeon(R) CPU E5-2683 v4 @ 2.10GHz
+Stepping:                        1
+CPU MHz:                         1203.188
+CPU max MHz:                     3000.0000
+CPU min MHz:                     1200.0000
+BogoMIPS:                        4199.68
+Virtualization:                  VT-x
+L1d cache:                       512 KiB
+L1i cache:                       512 KiB
+L2 cache:                        4 MiB
+L3 cache:                        40 MiB
+NUMA node0 CPU(s):               0-31
+Vulnerability Itlb multihit:     KVM: Mitigation: Split huge pages
+Vulnerability L1tf:              Mitigation; PTE Inversion; VMX conditional cache flushes, SMT vulnerable
+Vulnerability Mds:               Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Meltdown:          Mitigation; PTI
+Vulnerability Mmio stale data:   Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Retbleed:          Not affected
+Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl and seccomp
+Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:        Mitigation; Retpolines, IBPB conditional, IBRS_FW, STIBP conditional, RSB filling, PBRSB-eIBRS Not affected
+Vulnerability Srbds:             Not affected
+Vulnerability Tsx async abort:   Mitigation; Clear CPU buffers; SMT vulnerable
+Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single pti intel_ppin ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm rdt_a rdseed adx smap intel_pt xsaveopt cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts md_clear flush_l1d
+
+>>> GPU & NVIDIA Driver Info:
+Fri Oct  3 03:16:25 2025       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 530.30.02              Driver Version: 530.30.02    CUDA Version: 12.1     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                  Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf            Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA GeForce RTX 3090         On | 00000000:03:00.0 Off |                  N/A |
+|  0%   56C    P8               52W / 350W|      1MiB / 24576MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
+
+--- [ 2.2 Shell 配置文件 (~/.bashrc) ] ---
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# ... or force ignoredups and ignorespace
+HISTCONTROL=ignoredups:ignorespace
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+#if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+#    . /etc/bash_completion
+#fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+HISTSIZE=10000
+HISTFILESIZE=10000
+HISTFILE=/root/.history_command
+alias gpu='nvidia-smi'
+alias gpul='watch -n 1 -d nvidia-smi'
+export MAX_JOBS=$(nproc)
+
+--- [ 2.3 Conda 环境 'viat' 包列表 (conda list) ] ---
+# packages in environment at /usr/local/miniconda3/envs/viat:
+#
+# Name                    Version                   Build  Channel
+_libgcc_mutex             0.1                        main    defaults
+_openmp_mutex             5.1                       1_gnu    defaults
+absl-py                   1.0.0                    pypi_0    pypi
+accelerate                0.16.0                   pypi_0    pypi
+addict                    2.4.0                    pypi_0    pypi
+aiohttp                   3.8.1                    pypi_0    pypi
+aiosignal                 1.2.0                    pypi_0    pypi
+altair                    4.2.2                    pypi_0    pypi
+antlr4-python3-runtime    4.9.3                    pypi_0    pypi
+anyio                     3.5.0                    pypi_0    pypi
+aom                       3.6.0                h6a678d5_0    defaults
+apex                      0.1                      pypi_0    pypi
+argon2-cffi               21.3.0                   pypi_0    pypi
+argon2-cffi-bindings      21.2.0                   pypi_0    pypi
+async-timeout             4.0.2                    pypi_0    pypi
+asynctest                 0.13.0                   pypi_0    pypi
+attrs                     21.4.0                   pypi_0    pypi
+babel                     2.9.1                    pypi_0    pypi
+backcall                  0.2.0                    pypi_0    pypi
+bayesian-optimization     1.4.2                    pypi_0    pypi
+beautifulsoup4            4.10.0                   pypi_0    pypi
+blas                      1.0                         mkl    defaults
+bleach                    4.1.0                    pypi_0    pypi
+blinker                   1.9.0                    pypi_0    pypi
+blis                      1.2.1                    pypi_0    pypi
+braceexpand               0.1.7                    pypi_0    pypi
+brotlicffi                1.0.9.2         py310h6a678d5_1    defaults
+brotlipy                  0.7.0                    pypi_0    pypi
+bzip2                     1.0.8                h5eee18b_6    defaults
+ca-certificates           2025.9.9             h06a4308_0    defaults
+cachetools                5.0.0                    pypi_0    pypi
+cairo                     1.18.4               h44eff21_0    defaults
+catalogue                 2.0.10                   pypi_0    pypi
+certifi                   2023.5.7                 pypi_0    pypi
+cffi                      1.15.0                   pypi_0    pypi
+cfgv                      3.4.0                    pypi_0    pypi
+charset-normalizer        2.0.4                    pypi_0    pypi
+click                     8.3.0                    pypi_0    pypi
+cloudpathlib              0.22.0                   pypi_0    pypi
+colorama                  0.4.6                    pypi_0    pypi
+conda-pack                0.7.0                    pypi_0    pypi
+confection                0.1.5                    pypi_0    pypi
+configargparse            1.7.1                    pypi_0    pypi
+contexttimer              0.3.3                    pypi_0    pypi
+cox                       0.1.post3                pypi_0    pypi
+cryptography              36.0.0                   pypi_0    pypi
+cudatoolkit               11.3.1               h2bc3f7f_2    defaults
+cycler                    0.11.0                   pypi_0    pypi
+cymem                     2.0.11                   pypi_0    pypi
+cython                    0.29.34                  pypi_0    pypi
+dash                      3.2.0                    pypi_0    pypi
+datasets                  2.9.0                    pypi_0    pypi
+dav1d                     1.2.1                h5eee18b_0    defaults
+dearpygui                 1.6.2                    pypi_0    pypi
+debugpy                   1.5.1                    pypi_0    pypi
+decorator                 5.1.1                    pypi_0    pypi
+decord                    0.6.0                    pypi_0    pypi
+defusedxml                0.7.1                    pypi_0    pypi
+deprecation               2.1.0                    pypi_0    pypi
+dill                      0.3.6                    pypi_0    pypi
+distlib                   0.4.0                    pypi_0    pypi
+dlib                      19.22.0                  pypi_0    pypi
+dpcpp-cpp-rt              2025.2.1                 pypi_0    pypi
+einops                    0.4.1                    pypi_0    pypi
+entrypoints               0.4                      pypi_0    pypi
+expat                     2.7.1                h6a678d5_0    defaults
+fairscale                 0.4.4                    pypi_0    pypi
+fastjsonschema            2.21.2                   pypi_0    pypi
+ffmpeg                    6.1.1                h2a67f75_3    defaults
+filelock                  3.9.0                    pypi_0    pypi
+fire                      0.5.0                    pypi_0    pypi
+flask                     2.1.3                    pypi_0    pypi
+fontconfig                2.14.1               h55d465d_3    defaults
+fonttools                 4.31.2                   pypi_0    pypi
+freetype                  2.13.3               h4a9f257_0    defaults
+fribidi                   1.0.10               h7b6447c_0    defaults
+frozenlist                1.3.0                    pypi_0    pypi
+fsspec                    2022.2.0                 pypi_0    pypi
+ftfy                      6.1.1                    pypi_0    pypi
+future                    0.18.2                   pypi_0    pypi
+giflib                    5.2.2                h5eee18b_0    defaults
+gitdb                     4.0.9                    pypi_0    pypi
+gitpython                 3.1.27                   pypi_0    pypi
+google-auth               2.6.2                    pypi_0    pypi
+google-auth-oauthlib      0.4.6                    pypi_0    pypi
+gputil                    1.4.0                    pypi_0    pypi
+graphite2                 1.3.14               h295c915_1    defaults
+grpcio                    1.45.0                   pypi_0    pypi
+h5py                      3.7.0                    pypi_0    pypi
+harfbuzz                  10.2.0               hdfddeaa_1    defaults
+huggingface-hub           0.12.1                   pypi_0    pypi
+icu                       73.1                 h6a678d5_0    defaults
+identify                  2.6.14                   pypi_0    pypi
+idna                      3.3                      pypi_0    pypi
+imageio                   2.10.4                   pypi_0    pypi
+imageio-ffmpeg            0.4.5                    pypi_0    pypi
+importlib-metadata        4.11.3                   pypi_0    pypi
+importlib-resources       5.4.0                    pypi_0    pypi
+intel-cmplr-lib-rt        2025.2.1                 pypi_0    pypi
+intel-cmplr-lib-ur        2025.2.1                 pypi_0    pypi
+intel-cmplr-lic-rt        2025.2.1                 pypi_0    pypi
+intel-opencl-rt           2025.2.1                 pypi_0    pypi
+intel-openmp              2025.2.1                 pypi_0    pypi
+intel-sycl-rt             2025.2.1                 pypi_0    pypi
+iopath                    0.1.10                   pypi_0    pypi
+ipykernel                 6.9.2                    pypi_0    pypi
+ipython                   7.32.0                   pypi_0    pypi
+ipython-genutils          0.2.0                    pypi_0    pypi
+ipywidgets                7.7.0                    pypi_0    pypi
+itsdangerous              2.2.0                    pypi_0    pypi
+jedi                      0.18.1                   pypi_0    pypi
+jinja2                    3.0.3                    pypi_0    pypi
+joblib                    1.1.0                    pypi_0    pypi
+jpeg                      9f                   h5ce9db8_0    defaults
+json5                     0.9.6                    pypi_0    pypi
+jsonpatch                 1.32                     pypi_0    pypi
+jsonpointer               2.3                      pypi_0    pypi
+jsonschema                4.4.0                    pypi_0    pypi
+jupyter                   1.0.0                    pypi_0    pypi
+jupyter-client            7.1.2                    pypi_0    pypi
+jupyter-console           6.4.3                    pypi_0    pypi
+jupyter-core              4.9.2                    pypi_0    pypi
+jupyter-packaging         0.11.1                   pypi_0    pypi
+jupyter-server            1.15.6                   pypi_0    pypi
+jupyterlab                3.3.2                    pypi_0    pypi
+jupyterlab-pygments       0.1.2                    pypi_0    pypi
+jupyterlab-server         2.11.2                   pypi_0    pypi
+jupyterlab-widgets        1.1.0                    pypi_0    pypi
+kaggle                    1.7.4.5                  pypi_0    pypi
+kiwisolver                1.4.2                    pypi_0    pypi
+kornia                    0.6.5                    pypi_0    pypi
+lame                      3.100                h7b6447c_0    defaults
+langcodes                 3.5.0                    pypi_0    pypi
+language-data             1.3.0                    pypi_0    pypi
+lcms2                     2.16                 h92b89f2_1    defaults
+ld_impl_linux-64          2.40                 h12ee557_0    defaults
+leptonica                 1.82.0               hfdeec58_3    defaults
+lerc                      4.0.0                h6a678d5_0    defaults
+libarchive                3.8.1                h13d4d48_0    defaults
+libavif                   1.1.1                h5eee18b_0    defaults
+libdeflate                1.22                 h5eee18b_0    defaults
+libffi                    3.4.4                h6a678d5_1    defaults
+libgcc-ng                 11.2.0               h1234567_1    defaults
+libglib                   2.84.2               h37c7471_0    defaults
+libgomp                   11.2.0               h1234567_1    defaults
+libiconv                  1.16                 h5eee18b_3    defaults
+libogg                    1.3.5                h27cfd23_1    defaults
+libopus                   1.3.1                h5eee18b_1    defaults
+libpng                    1.6.39               h5eee18b_0    defaults
+libstdcxx-ng              11.2.0               h1234567_1    defaults
+libtheora                 1.1.1                h7f8727e_3    defaults
+libtiff                   4.7.0                hde9077f_0    defaults
+libuuid                   1.41.5               h5eee18b_0    defaults
+libuv                     1.48.0               h5eee18b_0    defaults
+libvorbis                 1.3.7                h7b6447c_0    defaults
+libvpx                    1.13.1               h6a678d5_0    defaults
+libwebp                   1.3.2                h9f374a3_1    defaults
+libwebp-base              1.3.2                h5eee18b_1    defaults
+libxcb                    1.17.0               h9b100fa_0    defaults
+libxml2                   2.13.8               hfdd30dd_0    defaults
+libzlib                   1.3.1                hb25bd0a_0    defaults
+lightning-utilities       0.15.2                   pypi_0    pypi
+lpips                     0.1.4                    pypi_0    pypi
+lz4-c                     1.9.4                h6a678d5_1    defaults
+marisa-trie               1.3.1                    pypi_0    pypi
+markdown                  3.3.6                    pypi_0    pypi
+markdown-it-py            2.2.0                    pypi_0    pypi
+markupsafe                2.1.1                    pypi_0    pypi
+matplotlib                3.5.1                    pypi_0    pypi
+matplotlib-inline         0.1.3                    pypi_0    pypi
+mdurl                     0.1.2                    pypi_0    pypi
+mistune                   0.8.4                    pypi_0    pypi
+mkl                       2025.2.0                 pypi_0    pypi
+mkl-fft                   1.3.6                    pypi_0    pypi
+mkl-service               2.4.0           py310h7f8727e_0    defaults
+mkl_fft                   1.3.1           py310hd6ae3a3_0    defaults
+mkl_random                1.2.2           py310h00e6091_0    defaults
+mmcv                      1.7.0                    pypi_0    pypi
+mpmath                    1.2.1                    pypi_0    pypi
+multidict                 6.0.2                    pypi_0    pypi
+multiprocess              0.70.14                  pypi_0    pypi
+munkres                   1.1.4                    pypi_0    pypi
+murmurhash                1.0.13                   pypi_0    pypi
+mxnet                     1.9.1                    pypi_0    pypi
+narwhals                  2.5.0                    pypi_0    pypi
+nbclassic                 0.3.7                    pypi_0    pypi
+nbclient                  0.5.13                   pypi_0    pypi
+nbconvert                 6.4.4                    pypi_0    pypi
+nbformat                  5.5.0                    pypi_0    pypi
+ncurses                   6.5                  h7934f7d_0    defaults
+nest-asyncio              1.5.4                    pypi_0    pypi
+networkx                  2.5                      pypi_0    pypi
+ninja                     1.10.2.3                 pypi_0    pypi
+nodeenv                   1.9.1                    pypi_0    pypi
+notebook                  6.4.10                   pypi_0    pypi
+notebook-shim             0.1.0                    pypi_0    pypi
+numexpr                   2.8.1                    pypi_0    pypi
+numpy                     1.24.4                   pypi_0    pypi
+numpy-base                1.24.3          py310h8e6c178_0    defaults
+oauthlib                  3.2.0                    pypi_0    pypi
+omegaconf                 2.3.0                    pypi_0    pypi
+open3d                    0.16.0                   pypi_0    pypi
+opencv-python             4.6.0.66                 pypi_0    pypi
+opencv-python-headless    4.5.5.64                 pypi_0    pypi
+opendatasets              0.1.22                   pypi_0    pypi
+openh264                  2.1.1                h4ff587b_0    defaults
+openjpeg                  2.5.2                h0d4d230_1    defaults
+openssl                   3.0.17               h5eee18b_0    defaults
+packaging                 22.0                     pypi_0    pypi
+pandas                    1.3.5                    pypi_0    pypi
+pandocfilters             1.5.0                    pypi_0    pypi
+parso                     0.8.3                    pypi_0    pypi
+patsy                     0.5.3                    pypi_0    pypi
+pcre2                     10.42                hebb0a14_1    defaults
+pexpect                   4.8.0                    pypi_0    pypi
+pickleshare               0.7.5                    pypi_0    pypi
+pillow                    9.0.1                    pypi_0    pypi
+pip                       23.0.1                   pypi_0    pypi
+pixman                    0.46.4               h7934f7d_0    defaults
+platformdirs              3.11.0                   pypi_0    pypi
+plotly                    6.3.0                    pypi_0    pypi
+plyfile                   0.7.2                    pypi_0    pypi
+portalocker               3.2.0                    pypi_0    pypi
+pre-commit                4.3.0                    pypi_0    pypi
+preshed                   3.0.10                   pypi_0    pypi
+prometheus-client         0.13.1                   pypi_0    pypi
+prompt-toolkit            3.0.28                   pypi_0    pypi
+protobuf                  3.19.4                   pypi_0    pypi
+psutil                    5.9.0                    pypi_0    pypi
+pthread-stubs             0.3                  h0ce48e5_1    defaults
+ptyprocess                0.7.0                    pypi_0    pypi
+py3nvml                   0.2.7                    pypi_0    pypi
+pyarrow                   11.0.0                   pypi_0    pypi
+pyasn1                    0.4.8                    pypi_0    pypi
+pyasn1-modules            0.2.8                    pypi_0    pypi
+pycocoevalcap             1.2                      pypi_0    pypi
+pycocotools               2.0.10                   pypi_0    pypi
+pycollada                 0.7.1                    pypi_0    pypi
+pycparser                 2.21                     pypi_0    pypi
+pydantic                  1.10.2                   pypi_0    pypi
+pydeck                    0.9.1                    pypi_0    pypi
+pydeprecate               0.3.1                    pypi_0    pypi
+pyglet                    1.5.10                   pypi_0    pypi
+pygments                  2.11.2                   pypi_0    pypi
+pymcubes                  0.1.6                    pypi_0    pypi
+pympler                   1.1                      pypi_0    pypi
+pyopenssl                 22.0.0                   pypi_0    pypi
+pyparsing                 3.0.9                    pypi_0    pypi
+pyquaternion              0.9.9                    pypi_0    pypi
+pyrsistent                0.18.1                   pypi_0    pypi
+pysocks                   1.7.1           py310h06a4308_0    defaults
+python                    3.10.18              h1a3bd86_0    defaults
+python-dateutil           2.8.2                    pypi_0    pypi
+python-graphviz           0.8.4                    pypi_0    pypi
+python-magic              0.4.27                   pypi_0    pypi
+python-slugify            8.0.4                    pypi_0    pypi
+pytorch-lightning         1.8.6                    pypi_0    pypi
+pytorch-mutex             1.0                        cuda    pytorch
+pytorch-ranger            0.1.1                    pypi_0    pypi
+pytz                      2022.1                   pypi_0    pypi
+pywavelets                1.3.0                    pypi_0    pypi
+pyyaml                    6.0                      pypi_0    pypi
+pyzmq                     22.3.0                   pypi_0    pypi
+qtconsole                 5.2.2                    pypi_0    pypi
+qtpy                      2.0.1                    pypi_0    pypi
+readline                  8.3                  hc2a1206_0    defaults
+regex                     2022.10.31               pypi_0    pypi
+requests                  2.27.1                   pypi_0    pypi
+requests-oauthlib         1.3.1                    pypi_0    pypi
+responses                 0.18.0                   pypi_0    pypi
+retrying                  1.4.2                    pypi_0    pypi
+rich                      13.2.0                   pypi_0    pypi
+robustness                1.2.1.post2              pypi_0    pypi
+rsa                       4.8                      pypi_0    pypi
+salesforce-lavis          1.0.2                    pypi_0    pypi
+scikit-image              0.19.3                   pypi_0    pypi
+scikit-learn              1.0.2                    pypi_0    pypi
+scipy                     1.15.3                   pypi_0    pypi
+seaborn                   0.11.2                   pypi_0    pypi
+send2trash                1.8.0                    pypi_0    pypi
+sentencepiece             0.2.1                    pypi_0    pypi
+setuptools                58.0.4                   pypi_0    pypi
+setuptools-scm            6.4.2                    pypi_0    pypi
+shellingham               1.5.4                    pypi_0    pypi
+six                       1.16.0                   pypi_0    pypi
+smart-open                7.3.1                    pypi_0    pypi
+smmap                     5.0.0                    pypi_0    pypi
+sniffio                   1.2.0                    pypi_0    pypi
+soupsieve                 2.3.1                    pypi_0    pypi
+spacy                     3.8.7                    pypi_0    pypi
+spacy-legacy              3.0.12                   pypi_0    pypi
+spacy-loggers             1.0.5                    pypi_0    pypi
+sqlite                    3.50.2               hb25bd0a_1    defaults
+srsly                     2.5.1                    pypi_0    pypi
+statsmodels               0.13.5                   pypi_0    pypi
+streamlit                 1.22.0                   pypi_0    pypi
+sympy                     1.10.1                   pypi_0    pypi
+tables                    3.7.0                    pypi_0    pypi
+tbb                       2022.2.0                 pypi_0    pypi
+tcmlib                    1.4.0                    pypi_0    pypi
+tenacity                  8.5.0                    pypi_0    pypi
+tensorboard               2.8.0                    pypi_0    pypi
+tensorboard-data-server   0.6.1                    pypi_0    pypi
+tensorboard-plugin-wit    1.8.1                    pypi_0    pypi
+tensorboardx              2.5                      pypi_0    pypi
+termcolor                 2.1.1                    pypi_0    pypi
+terminado                 0.13.3                   pypi_0    pypi
+tesseract                 5.2.0                hb0d2e87_3    defaults
+test-tube                 0.7.5                    pypi_0    pypi
+testpath                  0.6.0                    pypi_0    pypi
+text-unidecode            1.3                      pypi_0    pypi
+thinc                     8.3.4                    pypi_0    pypi
+threadpoolctl             3.1.0                    pypi_0    pypi
+tifffile                  2021.11.2                pypi_0    pypi
+timm                      0.4.12                   pypi_0    pypi
+tinycudann                2.0                      pypi_0    pypi
+tk                        8.6.15               h54e0aa7_0    defaults
+tokenizers                0.13.2                   pypi_0    pypi
+toml                      0.10.2                   pypi_0    pypi
+tomli                     2.0.1                    pypi_0    pypi
+tomlkit                   0.10.0                   pypi_0    pypi
+toolz                     1.0.0                    pypi_0    pypi
+torch                     1.12.0+cu116             pypi_0    pypi
+torch-optimizer           0.3.0                    pypi_0    pypi
+torch-scatter             2.1.2                    pypi_0    pypi
+torchaudio                0.12.0+cu116             pypi_0    pypi
+torchmetrics              0.7.3                    pypi_0    pypi
+torchvision               0.13.0+cu116             pypi_0    pypi
+tornado                   6.1                      pypi_0    pypi
+tqdm                      4.63.1                   pypi_0    pypi
+traitlets                 5.1.1                    pypi_0    pypi
+transformers              4.26.1                   pypi_0    pypi
+trimesh                   3.9.1                    pypi_0    pypi
+typer                     0.19.2                   pypi_0    pypi
+typing-extensions         4.1.1                    pypi_0    pypi
+tzdata                    2025b                h04d1e81_0    defaults
+tzlocal                   5.3.1                    pypi_0    pypi
+umf                       0.11.0                   pypi_0    pypi
+urllib3                   1.26.8                   pypi_0    pypi
+validators                0.35.0                   pypi_0    pypi
+virtualenv                20.21.1                  pypi_0    pypi
+visdom                    0.2.4                    pypi_0    pypi
+vren                      2.0                      pypi_0    pypi
+wasabi                    1.1.3                    pypi_0    pypi
+watchdog                  6.0.0                    pypi_0    pypi
+wcwidth                   0.2.5                    pypi_0    pypi
+weasel                    0.4.1                    pypi_0    pypi
+webdataset                1.0.2                    pypi_0    pypi
+webencodings              0.5.1                    pypi_0    pypi
+websocket-client          1.3.1                    pypi_0    pypi
+werkzeug                  2.0.3                    pypi_0    pypi
+wheel                     0.37.1                   pypi_0    pypi
+widgetsnbextension        3.6.0                    pypi_0    pypi
+wrapt                     1.17.3                   pypi_0    pypi
+xlwt                      1.3.0                    pypi_0    pypi
+xmltodict                 0.13.0                   pypi_0    pypi
+xorg-libx11               1.8.12               h9b100fa_1    defaults
+xorg-libxau               1.0.12               h9b100fa_0    defaults
+xorg-libxdmcp             1.1.5                h9b100fa_0    defaults
+xorg-libxext              1.3.6                h9b100fa_0    defaults
+xorg-libxrender           0.9.12               h9b100fa_0    defaults
+xorg-xorgproto            2024.1               h5eee18b_1    defaults
+xxhash                    3.2.0                    pypi_0    pypi
+xz                        5.6.4                h5eee18b_1    defaults
+yapf                      0.32.0                   pypi_0    pypi
+yarl                      1.7.2                    pypi_0    pypi
+zipp                      3.7.0                    pypi_0    pypi
+zlib                      1.3.1                hb25bd0a_0    defaults
+zstd                      1.5.7                h11fc155_0    defaults
+
+--- [ 2.4 系统级已安装包 (apt list) ] ---
+Listing...
+adduser/focal,now 3.118ubuntu2 all [installed]
+alsa-topology-conf/focal,now 1.2.2-1 all [installed,automatic]
+alsa-ucm-conf/focal-updates,now 1.2.2-1ubuntu0.13 all [installed,automatic]
+apt/now 2.0.9 amd64 [installed,upgradable to: 2.0.11]
+base-files/now 11ubuntu5.6 amd64 [installed,upgradable to: 11ubuntu5.8]
+base-passwd/focal,now 3.5.47 amd64 [installed]
+bash-completion/focal,now 1:2.10-1ubuntu1 all [installed]
+bash/focal-updates,focal-security,now 5.0-6ubuntu1.2 amd64 [installed]
+bind9-dnsutils/now 1:9.16.1-0ubuntu2.14 amd64 [installed,upgradable to: 1:9.18.30-0ubuntu0.20.04.2]
+bind9-host/now 1:9.16.1-0ubuntu2.14 amd64 [installed,upgradable to: 1:9.18.30-0ubuntu0.20.04.2]
+bind9-libs/now 1:9.16.1-0ubuntu2.14 amd64 [installed,upgradable to: 1:9.18.30-0ubuntu0.20.04.2]
+binutils-common/now 2.34-6ubuntu1.4 amd64 [installed,upgradable to: 2.34-6ubuntu1.11]
+binutils-x86-64-linux-gnu/now 2.34-6ubuntu1.4 amd64 [installed,upgradable to: 2.34-6ubuntu1.11]
+binutils/now 2.34-6ubuntu1.4 amd64 [installed,upgradable to: 2.34-6ubuntu1.11]
+bsdutils/now 1:2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 1:2.34-0.1ubuntu9.6]
+build-essential/focal-updates,now 12.8ubuntu1.1 amd64 [installed]
+bzip2/focal,now 1.0.8-2 amd64 [installed]
+ca-certificates/focal-updates,focal-security,now 20240203~20.04.1 all [installed]
+cmake-data/focal-updates,now 3.16.3-1ubuntu1.20.04.1 all [installed,automatic]
+cmake/focal-updates,now 3.16.3-1ubuntu1.20.04.1 amd64 [installed]
+coreutils/focal,now 8.30-3ubuntu2 amd64 [installed]
+cpp-9/now 9.4.0-1ubuntu1~20.04.1 amd64 [installed,upgradable to: 9.4.0-1ubuntu1~20.04.2]
+cpp/focal,now 4:9.3.0-1ubuntu2 amd64 [installed,automatic]
+cuda-cccl-11-6/unknown,now 11.6.55-1 amd64 [installed,automatic]
+cuda-command-line-tools-11-6/unknown,now 11.6.0-1 amd64 [installed,upgradable to: 11.6.2-1]
+cuda-compat-11-6/unknown,now 510.108.03-1 amd64 [installed]
+cuda-compiler-11-6/unknown,now 11.6.2-1 amd64 [installed,automatic]
+cuda-cudart-11-6/unknown,now 11.6.55-1 amd64 [installed]
+cuda-cudart-dev-11-6/unknown,now 11.6.55-1 amd64 [installed]
+cuda-cuobjdump-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-cupti-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-cupti-dev-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-cuxxfilt-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-driver-dev-11-6/unknown,now 11.6.55-1 amd64 [installed,automatic]
+cuda-gdb-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-libraries-11-6/unknown,now 11.6.0-1 amd64 [installed,upgradable to: 11.6.2-1]
+cuda-libraries-dev-11-6/unknown,now 11.6.0-1 amd64 [installed,upgradable to: 11.6.2-1]
+cuda-memcheck-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-minimal-build-11-6/unknown,now 11.6.0-1 amd64 [installed,upgradable to: 11.6.2-1]
+cuda-nvcc-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-nvdisasm-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-nvml-dev-11-6/unknown,now 11.6.55-1 amd64 [installed]
+cuda-nvprof-11-6/unknown,now 11.6.55-1 amd64 [installed,upgradable to: 11.6.124-1]
+cuda-nvprune-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-nvrtc-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-nvrtc-dev-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-nvtx-11-6/unknown,now 11.6.55-1 amd64 [installed,upgradable to: 11.6.124-1]
+cuda-sanitizer-11-6/unknown,now 11.6.124-1 amd64 [installed,automatic]
+cuda-toolkit-11-6-config-common/unknown,now 11.6.55-1 all [installed,automatic]
+cuda-toolkit-11-config-common/unknown,now 11.8.89-1 all [installed,automatic]
+cuda-toolkit-config-common/unknown,now 12.0.107-1 all [installed,upgradable to: 12.9.79-1]
+curl/now 7.68.0-1ubuntu2.18 amd64 [installed,upgradable to: 7.68.0-1ubuntu2.25]
+dash/focal,now 0.5.10.2-6 amd64 [installed]
+dbus-user-session/focal-updates,focal-security,now 1.12.16-2ubuntu2.3 amd64 [installed,automatic]
+dbus/focal-updates,focal-security,now 1.12.16-2ubuntu2.3 amd64 [installed,automatic]
+dconf-gsettings-backend/focal,now 0.36.0-1 amd64 [installed,automatic]
+dconf-service/focal,now 0.36.0-1 amd64 [installed,automatic]
+debconf/focal,now 1.5.73 all [installed]
+debianutils/focal,now 4.9.1 amd64 [installed]
+diffutils/focal,now 1:3.7-3 amd64 [installed]
+dirmngr/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+distro-info-data/now 0.43ubuntu1.13 all [installed,upgradable to: 0.43ubuntu1.18]
+dmsetup/focal,now 2:1.02.167-1ubuntu1 amd64 [installed,automatic]
+dnsutils/now 1:9.16.1-0ubuntu2.14 all [installed,upgradable to: 1:9.18.30-0ubuntu0.20.04.2]
+dpkg-dev/focal-updates,focal-security,now 1.19.7ubuntu3.2 all [installed,automatic]
+dpkg/focal-updates,focal-security,now 1.19.7ubuntu3.2 amd64 [installed]
+e2fsprogs/focal-security,now 1.45.5-2ubuntu1.1 amd64 [installed,upgradable to: 1.45.5-2ubuntu1.2]
+fdisk/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+file/focal,now 1:5.38-4 amd64 [installed,automatic]
+findutils/focal,now 4.7.0-1ubuntu1 amd64 [installed]
+g++-9/now 9.4.0-1ubuntu1~20.04.1 amd64 [installed,upgradable to: 9.4.0-1ubuntu1~20.04.2]
+g++/focal,now 4:9.3.0-1ubuntu2 amd64 [installed,automatic]
+gcc-10-base/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+gcc-9-base/now 9.4.0-1ubuntu1~20.04.1 amd64 [installed,upgradable to: 9.4.0-1ubuntu1~20.04.2]
+gcc-9/now 9.4.0-1ubuntu1~20.04.1 amd64 [installed,upgradable to: 9.4.0-1ubuntu1~20.04.2]
+gcc/focal,now 4:9.3.0-1ubuntu2 amd64 [installed,automatic]
+gir1.2-glib-2.0/focal-updates,now 1.64.1-1~ubuntu20.04.1 amd64 [installed,automatic]
+gir1.2-packagekitglib-1.0/focal-updates,focal-security,now 1.1.13-2ubuntu1.1 amd64 [installed,automatic]
+git-man/now 1:2.25.1-1ubuntu3.11 all [installed,upgradable to: 1:2.25.1-1ubuntu3.14]
+git/focal-updates,focal-security,now 1:2.25.1-1ubuntu3.14 amd64 [installed]
+glib-networking-common/focal-updates,focal-security,now 2.64.2-1ubuntu0.1 all [installed,automatic]
+glib-networking-services/focal-updates,focal-security,now 2.64.2-1ubuntu0.1 amd64 [installed,automatic]
+glib-networking/focal-updates,focal-security,now 2.64.2-1ubuntu0.1 amd64 [installed,automatic]
+gnupg-l10n/now 2.2.19-3ubuntu2.2 all [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gnupg-utils/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gnupg2/now 2.2.19-3ubuntu2.2 all [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gnupg/now 2.2.19-3ubuntu2.2 all [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gnustep-base-common/focal,now 1.26.0-7 all [installed,automatic]
+gnustep-base-runtime/focal,now 1.26.0-7 amd64 [installed,automatic]
+gnustep-common/focal,now 2.7.0-4 amd64 [installed,automatic]
+gpg-agent/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gpg-wks-client/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gpg-wks-server/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gpg/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gpgconf/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gpgsm/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+gpgv/now 2.2.19-3ubuntu2.2 amd64 [installed,upgradable to: 2.2.19-3ubuntu2.5]
+grep/focal,now 3.4-1 amd64 [installed]
+gsettings-desktop-schemas/focal,now 3.36.0-1ubuntu1 all [installed,automatic]
+gzip/focal-updates,focal-security,now 1.10-0ubuntu4.1 amd64 [installed]
+hostname/focal,now 3.23 amd64 [installed]
+htop/focal,now 2.2.0-2build1 amd64 [installed]
+init-system-helpers/focal,now 1.57 all [installed]
+iproute2/focal,now 5.5.0-1ubuntu1 amd64 [installed]
+iputils-ping/focal,now 3:20190709-3 amd64 [installed,upgradable to: 3:20190709-3ubuntu1]
+iso-codes/focal,now 4.4-1 all [installed,automatic]
+krb5-locales/now 1.17-6ubuntu4.3 all [installed,upgradable to: 1.17-6ubuntu4.11]
+less/now 551-1ubuntu0.1 amd64 [installed,upgradable to: 551-1ubuntu0.3]
+libacl1/focal,now 2.2.53-6 amd64 [installed]
+libapparmor1/now 2.13.3-7ubuntu5.2 amd64 [installed,upgradable to: 2.13.3-7ubuntu5.4]
+libappstream4/focal,now 0.12.10-2 amd64 [installed,automatic]
+libapt-pkg6.0/now 2.0.9 amd64 [installed,upgradable to: 2.0.11]
+libarchive13/now 3.4.0-2ubuntu1.2 amd64 [installed,upgradable to: 3.4.0-2ubuntu1.5]
+libargon2-1/focal,now 0~20171227-0.2 amd64 [installed,automatic]
+libasan5/now 9.4.0-1ubuntu1~20.04.1 amd64 [installed,upgradable to: 9.4.0-1ubuntu1~20.04.2]
+libasn1-8-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+libasound2-data/focal-updates,now 1.2.2-2.1ubuntu2.5 all [installed,automatic]
+libasound2/focal-updates,now 1.2.2-2.1ubuntu2.5 amd64 [installed,automatic]
+libassuan0/focal,now 2.5.3-7ubuntu2 amd64 [installed,automatic]
+libatm1/focal,now 1:2.5.1-4 amd64 [installed,automatic]
+libatomic1/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libattr1/focal,now 1:2.4.48-5 amd64 [installed]
+libaudit-common/focal,now 1:2.8.5-2ubuntu6 all [installed]
+libaudit1/focal,now 1:2.8.5-2ubuntu6 amd64 [installed]
+libavahi-client3/now 0.7-4ubuntu7.1 amd64 [installed,upgradable to: 0.7-4ubuntu7.3]
+libavahi-common-data/now 0.7-4ubuntu7.1 amd64 [installed,upgradable to: 0.7-4ubuntu7.3]
+libavahi-common3/now 0.7-4ubuntu7.1 amd64 [installed,upgradable to: 0.7-4ubuntu7.3]
+libbinutils/now 2.34-6ubuntu1.4 amd64 [installed,upgradable to: 2.34-6ubuntu1.11]
+libblkid-dev/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+libblkid1/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+libbrotli1/focal-updates,focal-security,now 1.0.7-6ubuntu0.1 amd64 [installed,automatic]
+libbsd0/focal,now 0.10.0-1 amd64 [installed,automatic]
+libbz2-1.0/focal,now 1.0.8-2 amd64 [installed]
+libc-bin/now 2.31-0ubuntu9.9 amd64 [installed,upgradable to: 2.31-0ubuntu9.18]
+libc-dev-bin/now 2.31-0ubuntu9.9 amd64 [installed,upgradable to: 2.31-0ubuntu9.18]
+libc6-dev/now 2.31-0ubuntu9.9 amd64 [installed,upgradable to: 2.31-0ubuntu9.18]
+libc6/now 2.31-0ubuntu9.9 amd64 [installed,upgradable to: 2.31-0ubuntu9.18]
+libcanberra0/focal,now 0.30-7ubuntu1 amd64 [installed,automatic]
+libcap-ng0/focal,now 0.7.9-2.1build1 amd64 [installed]
+libcap2-bin/focal,now 1:2.32-1 amd64 [installed,upgradable to: 1:2.32-1ubuntu0.2]
+libcap2/focal,now 1:2.32-1 amd64 [installed,upgradable to: 1:2.32-1ubuntu0.2]
+libcbor0.6/focal,now 0.6.0-0ubuntu1 amd64 [installed,automatic]
+libcc1-0/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libcom-err2/focal-security,now 1.45.5-2ubuntu1.1 amd64 [installed,upgradable to: 1.45.5-2ubuntu1.2]
+libcrypt-dev/focal,now 1:4.4.10-10ubuntu4 amd64 [installed,automatic]
+libcrypt1/focal,now 1:4.4.10-10ubuntu4 amd64 [installed]
+libcryptsetup12/focal-security,now 2:2.2.2-3ubuntu2.4 amd64 [installed,upgradable to: 2:2.2.2-3ubuntu2.5]
+libctf-nobfd0/now 2.34-6ubuntu1.4 amd64 [installed,upgradable to: 2.34-6ubuntu1.11]
+libctf0/now 2.34-6ubuntu1.4 amd64 [installed,upgradable to: 2.34-6ubuntu1.11]
+libcublas-11-6/unknown,now 11.8.1.74-1 amd64 [installed,upgradable to: 11.9.2.110-1]
+libcublas-dev-11-6/unknown,now 11.8.1.74-1 amd64 [installed,upgradable to: 11.9.2.110-1]
+libcudnn8-dev/unknown,now 8.4.0.27-1+cuda11.6 amd64 [installed,upgradable to: 8.9.7.29-1+cuda12.2]
+libcudnn8/unknown,now 8.4.0.27-1+cuda11.6 amd64 [installed,upgradable to: 8.9.7.29-1+cuda12.2]
+libcufft-11-6/unknown,now 10.7.2.124-1 amd64 [installed,automatic]
+libcufft-dev-11-6/unknown,now 10.7.2.124-1 amd64 [installed,automatic]
+libcufile-11-6/unknown,now 1.2.1.4-1 amd64 [installed,automatic]
+libcufile-dev-11-6/unknown,now 1.2.1.4-1 amd64 [installed,automatic]
+libcurand-11-6/unknown,now 10.2.9.124-1 amd64 [installed,automatic]
+libcurand-dev-11-6/unknown,now 10.2.9.124-1 amd64 [installed,automatic]
+libcurl3-gnutls/now 7.68.0-1ubuntu2.18 amd64 [installed,upgradable to: 7.68.0-1ubuntu2.25]
+libcurl4/now 7.68.0-1ubuntu2.18 amd64 [installed,upgradable to: 7.68.0-1ubuntu2.25]
+libcusolver-11-6/unknown,now 11.3.4.124-1 amd64 [installed,automatic]
+libcusolver-dev-11-6/unknown,now 11.3.4.124-1 amd64 [installed,automatic]
+libcusparse-11-6/unknown,now 11.7.1.55-1 amd64 [installed,upgradable to: 11.7.2.124-1]
+libcusparse-dev-11-6/unknown,now 11.7.1.55-1 amd64 [installed,upgradable to: 11.7.2.124-1]
+libdb5.3/focal,now 5.3.28+dfsg1-0.6ubuntu2 amd64 [installed]
+libdbus-1-3/focal-updates,focal-security,now 1.12.16-2ubuntu2.3 amd64 [installed,automatic]
+libdconf1/focal,now 0.36.0-1 amd64 [installed,automatic]
+libdebconfclient0/focal,now 0.251ubuntu1 amd64 [installed]
+libdevmapper1.02.1/focal,now 2:1.02.167-1ubuntu1 amd64 [installed,automatic]
+libdpkg-perl/focal-updates,focal-security,now 1.19.7ubuntu3.2 all [installed,automatic]
+libdrm-amdgpu1/focal-updates,focal-security,now 2.4.107-8ubuntu1~20.04.2 amd64 [installed,automatic]
+libdrm-common/focal-updates,focal-security,now 2.4.107-8ubuntu1~20.04.2 all [installed,automatic]
+libdrm-intel1/focal-updates,focal-security,now 2.4.107-8ubuntu1~20.04.2 amd64 [installed,automatic]
+libdrm-nouveau2/focal-updates,focal-security,now 2.4.107-8ubuntu1~20.04.2 amd64 [installed,automatic]
+libdrm-radeon1/focal-updates,focal-security,now 2.4.107-8ubuntu1~20.04.2 amd64 [installed,automatic]
+libdrm2/focal-updates,focal-security,now 2.4.107-8ubuntu1~20.04.2 amd64 [installed,automatic]
+libedit2/focal,now 3.1-20191231-1 amd64 [installed,automatic]
+libelf1/focal,now 0.176-1.1build1 amd64 [installed,upgradable to: 0.176-1.1ubuntu0.1]
+liberror-perl/focal,now 0.17029-1 all [installed,automatic]
+libevent-2.1-7/focal,now 2.1.11-stable-1 amd64 [installed,automatic]
+libexpat1-dev/focal-updates,focal-security,now 2.2.9-1ubuntu0.8 amd64 [installed,automatic]
+libexpat1/focal-updates,focal-security,now 2.2.9-1ubuntu0.8 amd64 [installed,automatic]
+libext2fs2/focal-security,now 1.45.5-2ubuntu1.1 amd64 [installed,upgradable to: 1.45.5-2ubuntu1.2]
+libfdisk1/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+libffi-dev/focal,now 3.3-4 amd64 [installed,automatic]
+libffi7/focal,now 3.3-4 amd64 [installed]
+libfido2-1/focal,now 1.3.1-1ubuntu2 amd64 [installed,automatic]
+libflac-dev/now 1.3.3-1ubuntu0.1 amd64 [installed,upgradable to: 1.3.3-1ubuntu0.2]
+libflac8/now 1.3.3-1ubuntu0.1 amd64 [installed,upgradable to: 1.3.3-1ubuntu0.2]
+libgc1c2/focal,now 1:7.6.4-0.4ubuntu1 amd64 [installed,automatic]
+libgcc-9-dev/now 9.4.0-1ubuntu1~20.04.1 amd64 [installed,upgradable to: 9.4.0-1ubuntu1~20.04.2]
+libgcc-s1/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libgcrypt20/focal-updates,focal-security,now 1.8.5-5ubuntu1.1 amd64 [installed]
+libgdbm-compat4/focal,now 1.18.1-5 amd64 [installed,automatic]
+libgdbm6/focal,now 1.18.1-5 amd64 [installed,automatic]
+libgirepository-1.0-1/focal-updates,now 1.64.1-1~ubuntu20.04.1 amd64 [installed,automatic]
+libgl1-mesa-dri/focal-updates,focal-security,now 21.2.6-0ubuntu0.1~20.04.2 amd64 [installed,automatic]
+libgl1-mesa-glx/focal-updates,focal-security,now 21.2.6-0ubuntu0.1~20.04.2 amd64 [installed]
+libgl1/focal-updates,focal-security,now 1.3.2-1~ubuntu0.20.04.2 amd64 [installed,automatic]
+libglapi-mesa/focal-updates,focal-security,now 21.2.6-0ubuntu0.1~20.04.2 amd64 [installed,automatic]
+libglib2.0-0/now 2.64.6-1~ubuntu20.04.4 amd64 [installed,upgradable to: 2.64.6-1~ubuntu20.04.9]
+libglib2.0-bin/now 2.64.6-1~ubuntu20.04.4 amd64 [installed,upgradable to: 2.64.6-1~ubuntu20.04.9]
+libglib2.0-data/now 2.64.6-1~ubuntu20.04.4 all [installed,upgradable to: 2.64.6-1~ubuntu20.04.9]
+libglib2.0-dev-bin/now 2.64.6-1~ubuntu20.04.4 amd64 [installed,upgradable to: 2.64.6-1~ubuntu20.04.9]
+libglib2.0-dev/now 2.64.6-1~ubuntu20.04.4 amd64 [installed,upgradable to: 2.64.6-1~ubuntu20.04.9]
+libglvnd0/focal-updates,focal-security,now 1.3.2-1~ubuntu0.20.04.2 amd64 [installed,automatic]
+libglx-mesa0/focal-updates,focal-security,now 21.2.6-0ubuntu0.1~20.04.2 amd64 [installed,automatic]
+libglx0/focal-updates,focal-security,now 1.3.2-1~ubuntu0.20.04.2 amd64 [installed,automatic]
+libgmp10/focal-updates,focal-security,now 2:6.2.0+dfsg-4ubuntu0.1 amd64 [installed]
+libgnustep-base1.26/focal,now 1.26.0-7 amd64 [installed,automatic]
+libgnutls30/now 3.6.13-2ubuntu1.7 amd64 [installed,upgradable to: 3.6.13-2ubuntu1.12]
+libgomp1/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libgpg-error0/focal,now 1.37-1 amd64 [installed]
+libgpm2/focal,now 1.20.7-5 amd64 [installed,automatic]
+libgssapi-krb5-2/now 1.17-6ubuntu4.3 amd64 [installed,upgradable to: 1.17-6ubuntu4.11]
+libgssapi3-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+libgstreamer1.0-0/now 1.16.3-0ubuntu1.1 amd64 [installed,upgradable to: 1.16.3-0ubuntu1.2]
+libhcrypto4-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+libheimbase1-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+libheimntlm0-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+libhogweed5/focal-updates,focal-security,now 3.5.1+really3.5.1-2ubuntu0.2 amd64 [installed]
+libhx509-5-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+libice6/focal,now 2:1.0.10-0ubuntu1 amd64 [installed,automatic]
+libicu66/focal-updates,focal-security,now 66.1-2ubuntu2.1 amd64 [installed,automatic]
+libidn2-0/focal,now 2.2.0-2 amd64 [installed]
+libip4tc2/focal-updates,now 1.8.4-3ubuntu2.1 amd64 [installed,automatic]
+libisl22/focal,now 0.22.1-1 amd64 [installed,automatic]
+libitm1/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libjson-c4/focal-updates,focal-security,now 0.13.1+dfsg-7ubuntu0.3 amd64 [installed,automatic]
+libjsoncpp1/focal,now 1.7.4-3.1ubuntu2 amd64 [installed,automatic]
+libk5crypto3/now 1.17-6ubuntu4.3 amd64 [installed,upgradable to: 1.17-6ubuntu4.11]
+libkeyutils1/focal-updates,now 1.6-6ubuntu1.1 amd64 [installed,automatic]
+libkmod2/focal-updates,now 27-1ubuntu2.1 amd64 [installed,automatic]
+libkrb5-26-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+libkrb5-3/now 1.17-6ubuntu4.3 amd64 [installed,upgradable to: 1.17-6ubuntu4.11]
+libkrb5support0/now 1.17-6ubuntu4.3 amd64 [installed,upgradable to: 1.17-6ubuntu4.11]
+libksba8/now 1.3.5-2ubuntu0.20.04.1 amd64 [installed,upgradable to: 1.3.5-2ubuntu0.20.04.2]
+libldap-2.4-2/now 2.4.49+dfsg-2ubuntu1.9 amd64 [installed,upgradable to: 2.4.49+dfsg-2ubuntu1.10]
+libldap-common/now 2.4.49+dfsg-2ubuntu1.9 all [installed,upgradable to: 2.4.49+dfsg-2ubuntu1.10]
+libllvm12/focal-updates,focal-security,now 1:12.0.0-3ubuntu1~20.04.5 amd64 [installed,automatic]
+liblmdb0/focal,now 0.9.24-1 amd64 [installed,automatic]
+liblsan0/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libltdl7/focal,now 2.4.6-14 amd64 [installed,automatic]
+liblz4-1/focal-updates,focal-security,now 1.9.2-2ubuntu0.20.04.1 amd64 [installed]
+liblzma5/focal-updates,focal-security,now 5.2.4-1ubuntu1.1 amd64 [installed]
+libmagic-mgc/focal,now 1:5.38-4 amd64 [installed,automatic]
+libmagic1/focal,now 1:5.38-4 amd64 [installed,automatic]
+libmaxminddb0/focal-updates,focal-security,now 1.4.2-0ubuntu1.20.04.1 amd64 [installed,automatic]
+libmnl0/focal,now 1.0.4-2 amd64 [installed,automatic]
+libmount-dev/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+libmount1/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+libmpc3/focal,now 1.1.0-1 amd64 [installed,automatic]
+libmpdec2/focal,now 2.4.2-3 amd64 [installed,automatic]
+libmpfr6/focal,now 4.0.2-1 amd64 [installed,automatic]
+libnccl-dev/unknown,now 2.12.10-1+cuda11.6 amd64 [installed,upgradable to: 2.28.3-1+cuda12.9]
+libnccl2/unknown,now 2.12.10-1+cuda11.6 amd64 [installed,upgradable to: 2.28.3-1+cuda12.9]
+libncurses6/focal,now 6.2-0ubuntu2 amd64 [installed,upgradable to: 6.2-0ubuntu2.1]
+libncursesw5/focal,now 6.2-0ubuntu2 amd64 [installed,upgradable to: 6.2-0ubuntu2.1]
+libncursesw6/focal,now 6.2-0ubuntu2 amd64 [installed,upgradable to: 6.2-0ubuntu2.1]
+libnettle7/focal-updates,focal-security,now 3.5.1+really3.5.1-2ubuntu0.2 amd64 [installed]
+libnghttp2-14/focal,now 1.40.0-1build1 amd64 [installed,upgradable to: 1.40.0-1ubuntu0.3]
+libnpp-11-6/unknown,now 11.6.0.55-1 amd64 [installed,upgradable to: 11.6.3.124-1]
+libnpp-dev-11-6/unknown,now 11.6.0.55-1 amd64 [installed,upgradable to: 11.6.3.124-1]
+libnpth0/focal,now 1.6-1 amd64 [installed,automatic]
+libnss-systemd/now 245.4-4ubuntu3.21 amd64 [installed,upgradable to: 245.4-4ubuntu3.24]
+libnvjpeg-11-6/unknown,now 11.6.2.124-1 amd64 [installed,automatic]
+libnvjpeg-dev-11-6/unknown,now 11.6.2.124-1 amd64 [installed,automatic]
+libobjc4/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libogg-dev/focal,now 1.3.4-0ubuntu1 amd64 [installed,automatic]
+libogg0/focal,now 1.3.4-0ubuntu1 amd64 [installed,automatic]
+libp11-kit0/focal-updates,focal-security,now 0.23.20-1ubuntu0.1 amd64 [installed]
+libpackagekit-glib2-18/focal-updates,focal-security,now 1.1.13-2ubuntu1.1 amd64 [installed,automatic]
+libpam-cap/focal,now 1:2.32-1 amd64 [installed,upgradable to: 1:2.32-1ubuntu0.2]
+libpam-modules-bin/now 1.3.1-5ubuntu4.3 amd64 [installed,upgradable to: 1.3.1-5ubuntu4.7]
+libpam-modules/now 1.3.1-5ubuntu4.3 amd64 [installed,upgradable to: 1.3.1-5ubuntu4.7]
+libpam-runtime/now 1.3.1-5ubuntu4.3 all [installed,upgradable to: 1.3.1-5ubuntu4.7]
+libpam-systemd/now 245.4-4ubuntu3.21 amd64 [installed,upgradable to: 245.4-4ubuntu3.24]
+libpam0g/now 1.3.1-5ubuntu4.3 amd64 [installed,upgradable to: 1.3.1-5ubuntu4.7]
+libpciaccess0/focal,now 0.16-0ubuntu1 amd64 [installed,automatic]
+libpcre16-3/focal-updates,focal-security,now 2:8.39-12ubuntu0.1 amd64 [installed,automatic]
+libpcre2-16-0/focal-updates,focal-security,now 10.34-7ubuntu0.1 amd64 [installed,automatic]
+libpcre2-32-0/focal-updates,focal-security,now 10.34-7ubuntu0.1 amd64 [installed,automatic]
+libpcre2-8-0/focal-updates,focal-security,now 10.34-7ubuntu0.1 amd64 [installed]
+libpcre2-dev/focal-updates,focal-security,now 10.34-7ubuntu0.1 amd64 [installed,automatic]
+libpcre2-posix2/focal-updates,focal-security,now 10.34-7ubuntu0.1 amd64 [installed,automatic]
+libpcre3-dev/focal-updates,focal-security,now 2:8.39-12ubuntu0.1 amd64 [installed,automatic]
+libpcre32-3/focal-updates,focal-security,now 2:8.39-12ubuntu0.1 amd64 [installed,automatic]
+libpcre3/focal-updates,focal-security,now 2:8.39-12ubuntu0.1 amd64 [installed]
+libpcrecpp0v5/focal-updates,focal-security,now 2:8.39-12ubuntu0.1 amd64 [installed,automatic]
+libperl5.30/now 5.30.0-9ubuntu0.3 amd64 [installed,upgradable to: 5.30.0-9ubuntu0.5]
+libpolkit-agent-1-0/focal-updates,focal-security,now 0.105-26ubuntu1.3 amd64 [installed,automatic]
+libpolkit-gobject-1-0/focal-updates,focal-security,now 0.105-26ubuntu1.3 amd64 [installed,automatic]
+libpopt0/focal,now 1.16-14 amd64 [installed,automatic]
+libprocps8/now 2:3.3.16-1ubuntu2.3 amd64 [installed,upgradable to: 2:3.3.16-1ubuntu2.4]
+libproxy1v5/focal-updates,focal-security,now 0.4.15-10ubuntu1.2 amd64 [installed,automatic]
+libpsl5/focal,now 0.21.0-1ubuntu1 amd64 [installed,automatic]
+libpthread-stubs0-dev/focal,now 0.4-1 amd64 [installed,automatic]
+libpython3-dev/focal,now 3.8.2-0ubuntu2 amd64 [installed,automatic]
+libpython3-stdlib/focal,now 3.8.2-0ubuntu2 amd64 [installed,automatic]
+libpython3.8-dev/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04.18 amd64 [installed,automatic]
+libpython3.8-minimal/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04.18 amd64 [installed,automatic]
+libpython3.8-stdlib/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04.18 amd64 [installed,automatic]
+libpython3.8/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04.18 amd64 [installed,automatic]
+libquadmath0/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libreadline8/focal,now 8.0-4 amd64 [installed,automatic]
+librhash0/focal,now 1.3.9-1 amd64 [installed,automatic]
+libroken18-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+librtmp1/focal,now 2.4+20151223.gitfa8646d.1-2build1 amd64 [installed,automatic]
+libsasl2-2/focal-updates,focal-security,now 2.1.27+dfsg-2ubuntu0.1 amd64 [installed,automatic]
+libsasl2-modules-db/focal-updates,focal-security,now 2.1.27+dfsg-2ubuntu0.1 amd64 [installed,automatic]
+libseccomp2/focal-updates,focal-security,now 2.5.1-1ubuntu1~20.04.2 amd64 [installed]
+libselinux1-dev/focal,now 3.0-1build2 amd64 [installed,automatic]
+libselinux1/focal,now 3.0-1build2 amd64 [installed]
+libsemanage-common/focal,now 3.0-1build2 all [installed]
+libsemanage1/focal,now 3.0-1build2 amd64 [installed]
+libsensors-config/focal-updates,now 1:3.6.0-2ubuntu1.1 all [installed,automatic]
+libsensors5/focal-updates,now 1:3.6.0-2ubuntu1.1 amd64 [installed,automatic]
+libsepol1-dev/focal-updates,focal-security,now 3.0-1ubuntu0.1 amd64 [installed,automatic]
+libsepol1/focal-updates,focal-security,now 3.0-1ubuntu0.1 amd64 [installed]
+libsm6/focal,now 2:1.2.3-1 amd64 [installed]
+libsmartcols1/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+libsndfile1-dev/now 1.0.28-7ubuntu0.1 amd64 [installed,upgradable to: 1.0.28-7ubuntu0.3]
+libsndfile1/now 1.0.28-7ubuntu0.1 amd64 [installed,upgradable to: 1.0.28-7ubuntu0.3]
+libsoup2.4-1/focal,now 2.70.0-1 amd64 [installed,upgradable to: 2.70.0-1ubuntu0.5]
+libsqlite3-0/now 3.31.1-4ubuntu0.5 amd64 [installed,upgradable to: 3.31.1-4ubuntu0.7]
+libss2/focal-security,now 1.45.5-2ubuntu1.1 amd64 [installed,upgradable to: 1.45.5-2ubuntu1.2]
+libssh-4/now 0.9.3-2ubuntu2.2 amd64 [installed,upgradable to: 0.9.3-2ubuntu2.5]
+libssl1.1/now 1.1.1f-1ubuntu2.16 amd64 [installed,upgradable to: 1.1.1f-1ubuntu2.24]
+libstdc++-9-dev/now 9.4.0-1ubuntu1~20.04.1 amd64 [installed,upgradable to: 9.4.0-1ubuntu1~20.04.2]
+libstdc++6/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libstemmer0d/focal,now 0+svn585-2 amd64 [installed,automatic]
+libsystemd0/now 245.4-4ubuntu3.21 amd64 [installed,upgradable to: 245.4-4ubuntu3.24]
+libtasn1-6/focal,now 4.16.0-2 amd64 [installed,upgradable to: 4.16.0-2ubuntu0.1]
+libtdb1/focal-updates,focal-security,now 1.4.5-0ubuntu0.20.04.1 amd64 [installed,automatic]
+libtinfo5/focal,now 6.2-0ubuntu2 amd64 [installed,upgradable to: 6.2-0ubuntu2.1]
+libtinfo6/focal,now 6.2-0ubuntu2 amd64 [installed,upgradable to: 6.2-0ubuntu2.1]
+libtsan0/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libubsan1/now 10.3.0-1ubuntu1~20.04 amd64 [installed,upgradable to: 10.5.0-1ubuntu1~20.04]
+libudev1/now 245.4-4ubuntu3.19 amd64 [installed,upgradable to: 245.4-4ubuntu3.24]
+libunistring2/focal,now 0.9.10-2 amd64 [installed]
+liburcu6/focal,now 0.11.1-2 amd64 [installed,automatic]
+libutempter0/focal,now 1.1.6-4 amd64 [installed,automatic]
+libuuid1/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+libuv1/now 1.34.2-1ubuntu1.3 amd64 [installed,upgradable to: 1.34.2-1ubuntu1.5]
+libvorbis-dev/focal,now 1.3.6-2ubuntu1 amd64 [installed,automatic]
+libvorbis0a/focal,now 1.3.6-2ubuntu1 amd64 [installed,automatic]
+libvorbisenc2/focal,now 1.3.6-2ubuntu1 amd64 [installed,automatic]
+libvorbisfile3/focal,now 1.3.6-2ubuntu1 amd64 [installed,automatic]
+libvulkan1/focal,now 1.2.131.2-1 amd64 [installed,automatic]
+libwavpack1/focal-updates,focal-security,now 5.2.0-1ubuntu0.1 amd64 [installed,automatic]
+libwayland-client0/focal-updates,focal-security,now 1.18.0-1ubuntu0.1 amd64 [installed,automatic]
+libwind0-heimdal/now 7.7.0+dfsg-1ubuntu1.2 amd64 [installed,upgradable to: 7.7.0+dfsg-1ubuntu1.4]
+libwrap0/focal,now 7.6.q-30 amd64 [installed,automatic]
+libx11-6/focal-updates,focal-security,now 2:1.6.9-2ubuntu1.6 amd64 [installed,automatic]
+libx11-data/now 2:1.6.9-2ubuntu1.2 all [installed,upgradable to: 2:1.6.9-2ubuntu1.6]
+libx11-dev/focal-updates,focal-security,now 2:1.6.9-2ubuntu1.6 amd64 [installed,automatic]
+libx11-xcb1/focal-updates,focal-security,now 2:1.6.9-2ubuntu1.6 amd64 [installed,automatic]
+libxau-dev/focal,now 1:1.0.9-0ubuntu1 amd64 [installed,automatic]
+libxau6/focal,now 1:1.0.9-0ubuntu1 amd64 [installed,automatic]
+libxcb-dri2-0/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb-dri3-0/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb-glx0/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb-present0/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb-randr0/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb-shm0/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb-sync1/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb-xfixes0/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb1-dev/focal,now 1.14-2 amd64 [installed,automatic]
+libxcb1/focal,now 1.14-2 amd64 [installed,automatic]
+libxdmcp-dev/focal,now 1:1.1.3-0ubuntu1 amd64 [installed,automatic]
+libxdmcp6/focal,now 1:1.1.3-0ubuntu1 amd64 [installed,automatic]
+libxext6/focal,now 2:1.3.4-0ubuntu1 amd64 [installed]
+libxfixes3/focal,now 1:5.0.3-2 amd64 [installed,automatic]
+libxml2/now 2.9.10+dfsg-5ubuntu0.20.04.6 amd64 [installed,upgradable to: 2.9.10+dfsg-5ubuntu0.20.04.10]
+libxmuu1/focal,now 2:1.1.3-0ubuntu1 amd64 [installed,automatic]
+libxrender-dev/focal,now 1:0.9.10-1 amd64 [installed]
+libxrender1/focal,now 1:0.9.10-1 amd64 [installed,automatic]
+libxshmfence1/focal,now 1.3-1 amd64 [installed,automatic]
+libxslt1.1/now 1.1.34-4ubuntu0.20.04.1 amd64 [installed,upgradable to: 1.1.34-4ubuntu0.20.04.3]
+libxtables12/focal-updates,now 1.8.4-3ubuntu2.1 amd64 [installed,automatic]
+libxxf86vm1/focal,now 1:1.1.4-1build1 amd64 [installed,automatic]
+libyaml-0-2/focal,now 0.2.2-1 amd64 [installed,automatic]
+libzstd1/focal-updates,focal-security,now 1.4.4+dfsg-3ubuntu0.1 amd64 [installed]
+linux-libc-dev/now 5.4.0-135.152 amd64 [installed,upgradable to: 5.4.0-216.236]
+locales/now 2.31-0ubuntu9.9 all [installed,upgradable to: 2.31-0ubuntu9.18]
+login/now 1:4.8.1-1ubuntu5.20.04.4 amd64 [installed,upgradable to: 1:4.8.1-1ubuntu5.20.04.5]
+logsave/focal-security,now 1.45.5-2ubuntu1.1 amd64 [installed,upgradable to: 1.45.5-2ubuntu1.2]
+lrzsz/focal,now 0.12.21-10 amd64 [installed]
+lsb-base/focal,now 11.1.0ubuntu2 all [installed]
+lsb-release/focal,now 11.1.0ubuntu2 all [installed,automatic]
+make/focal,now 4.2.1-1.2 amd64 [installed,automatic]
+mawk/focal,now 1.3.4.20200120-2 amd64 [installed]
+mesa-vulkan-drivers/focal-updates,focal-security,now 21.2.6-0ubuntu0.1~20.04.2 amd64 [installed,automatic]
+mime-support/focal,now 3.64ubuntu1 all [installed,automatic]
+mount/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+ncurses-base/focal,now 6.2-0ubuntu2 all [installed,upgradable to: 6.2-0ubuntu2.1]
+ncurses-bin/focal,now 6.2-0ubuntu2 amd64 [installed,upgradable to: 6.2-0ubuntu2.1]
+ncurses-term/focal-updates,focal-security,now 6.2-0ubuntu2.1 all [installed,automatic]
+net-tools/focal,now 1.60+git20180626.aebd88e-1ubuntu1 amd64 [installed,upgradable to: 1.60+git20180626.aebd88e-1ubuntu1.3]
+netbase/focal,now 6.1 all [installed,automatic]
+networkd-dispatcher/focal-updates,focal-security,now 2.1-2~ubuntu20.04.3 all [installed,automatic]
+openssh-client/now 1:8.2p1-4ubuntu0.7 amd64 [installed,upgradable to: 1:8.2p1-4ubuntu0.13]
+openssh-server/now 1:8.2p1-4ubuntu0.7 amd64 [installed,upgradable to: 1:8.2p1-4ubuntu0.13]
+openssh-sftp-server/now 1:8.2p1-4ubuntu0.7 amd64 [installed,upgradable to: 1:8.2p1-4ubuntu0.13]
+openssl/now 1.1.1f-1ubuntu2.16 amd64 [installed,upgradable to: 1.1.1f-1ubuntu2.24]
+p7zip-full/focal,now 16.02+dfsg-7build1 amd64 [installed]
+p7zip-rar/focal,now 16.02-3build1 amd64 [installed]
+p7zip/focal,now 16.02+dfsg-7build1 amd64 [installed,automatic]
+packagekit-tools/focal-updates,focal-security,now 1.1.13-2ubuntu1.1 amd64 [installed,automatic]
+packagekit/focal-updates,focal-security,now 1.1.13-2ubuntu1.1 amd64 [installed,automatic]
+passwd/now 1:4.8.1-1ubuntu5.20.04.4 amd64 [installed,upgradable to: 1:4.8.1-1ubuntu5.20.04.5]
+patch/focal,now 2.7.6-6 amd64 [installed,automatic]
+perl-base/now 5.30.0-9ubuntu0.3 amd64 [installed,upgradable to: 5.30.0-9ubuntu0.5]
+perl-modules-5.30/now 5.30.0-9ubuntu0.3 all [installed,upgradable to: 5.30.0-9ubuntu0.5]
+perl/now 5.30.0-9ubuntu0.3 amd64 [installed,upgradable to: 5.30.0-9ubuntu0.5]
+pinentry-curses/focal,now 1.1.0-3build1 amd64 [installed,automatic]
+pkg-config/focal,now 0.29.1-0ubuntu4 amd64 [installed,automatic]
+policykit-1/focal-updates,focal-security,now 0.105-26ubuntu1.3 amd64 [installed,automatic]
+procps/now 2:3.3.16-1ubuntu2.3 amd64 [installed,upgradable to: 2:3.3.16-1ubuntu2.4]
+publicsuffix/focal,now 20200303.0012-1 all [installed,automatic]
+python-apt-common/focal-updates,now 2.0.1ubuntu0.20.04.1 all [installed,automatic]
+python3-apt/focal-updates,now 2.0.1ubuntu0.20.04.1 amd64 [installed,automatic]
+python3-certifi/focal,now 2019.11.28-1 all [installed,automatic]
+python3-chardet/focal,now 3.0.4-4build1 all [installed,automatic]
+python3-dbus/focal,now 1.2.16-1build1 amd64 [installed,automatic]
+python3-dev/focal,now 3.8.2-0ubuntu2 amd64 [installed]
+python3-distro-info/focal,now 0.23ubuntu1 all [installed,upgradable to: 0.23ubuntu1.1]
+python3-distro/focal,now 1.4.0-1 all [installed,automatic]
+python3-distutils/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04 all [installed,automatic]
+python3-gi/focal,now 3.36.0-1 amd64 [installed,automatic]
+python3-idna/focal,now 2.8-1 all [installed,upgradable to: 2.8-1ubuntu0.1]
+python3-lib2to3/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04 all [installed,automatic]
+python3-minimal/focal,now 3.8.2-0ubuntu2 amd64 [installed,automatic]
+python3-pkg-resources/now 45.2.0-1ubuntu0.1 all [installed,upgradable to: 45.2.0-1ubuntu0.3]
+python3-requests-unixsocket/focal,now 0.2.0-2 all [installed,automatic]
+python3-requests/focal,now 2.22.0-2ubuntu1 all [installed,upgradable to: 2.22.0-2ubuntu1.1]
+python3-six/focal,now 1.14.0-2 all [installed,automatic]
+python3-software-properties/now 0.99.9.11 all [installed,upgradable to: 0.99.9.12]
+python3-urllib3/now 1.25.8-2ubuntu0.2 all [installed,upgradable to: 1.25.8-2ubuntu0.4]
+python3.8-dev/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04.18 amd64 [installed,automatic]
+python3.8-minimal/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04.18 amd64 [installed,automatic]
+python3.8/focal-updates,focal-security,now 3.8.10-0ubuntu1~20.04.18 amd64 [installed,automatic]
+python3/focal,now 3.8.2-0ubuntu2 amd64 [installed,automatic]
+readline-common/focal,now 8.0-4 all [installed,automatic]
+rsync/focal-updates,focal-security,now 3.1.3-8ubuntu0.9 amd64 [installed]
+screen/focal-updates,focal-security,now 4.8.0-1ubuntu0.1 amd64 [installed]
+sed/focal,now 4.7-1 amd64 [installed]
+sensible-utils/focal,now 0.0.12+nmu1 all [installed]
+shared-mime-info/focal,now 1.15-1 amd64 [installed,automatic]
+software-properties-common/now 0.99.9.11 all [installed,upgradable to: 0.99.9.12]
+sound-theme-freedesktop/focal,now 0.8-2ubuntu1 all [installed,automatic]
+ssh-import-id/focal,now 5.10-0ubuntu1 all [installed,automatic]
+sudo/focal-updates,focal-security,now 1.8.31-1ubuntu1.5 amd64 [installed]
+systemd-sysv/now 245.4-4ubuntu3.21 amd64 [installed,upgradable to: 245.4-4ubuntu3.24]
+systemd-timesyncd/now 245.4-4ubuntu3.21 amd64 [installed,upgradable to: 245.4-4ubuntu3.24]
+systemd/now 245.4-4ubuntu3.21 amd64 [installed,upgradable to: 245.4-4ubuntu3.24]
+sysvinit-utils/focal,now 2.96-2.1ubuntu1 amd64 [installed]
+tar/now 1.30+dfsg-7ubuntu0.20.04.2 amd64 [installed,upgradable to: 1.30+dfsg-7ubuntu0.20.04.4]
+telnet/focal,now 0.17-41.2build1 amd64 [installed]
+tmux/focal-updates,focal-security,now 3.0a-2ubuntu0.4 amd64 [installed]
+tree/focal,now 1.8.0-1 amd64 [installed]
+tzdata/now 2023c-0ubuntu0.20.04.2 all [installed,upgradable to: 2025b-0ubuntu0.20.04.1]
+ubuntu-keyring/focal-updates,now 2020.02.11.4 all [installed]
+ucf/focal,now 3.0038+nmu1 all [installed,automatic]
+unar/focal,now 1.10.1-2build7 amd64 [installed,automatic]
+unattended-upgrades/focal-updates,now 2.3ubuntu0.3 all [installed,automatic]
+unrar-free/focal,now 1:0.0.1+cvs20140707-4 amd64 [installed]
+unzip/focal-security,now 6.0-25ubuntu1.1 amd64 [installed,upgradable to: 6.0-25ubuntu1.2]
+util-linux/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+uuid-dev/now 2.34-0.1ubuntu9.3 amd64 [installed,upgradable to: 2.34-0.1ubuntu9.6]
+vim-common/now 2:8.1.2269-1ubuntu5.14 all [installed,upgradable to: 2:8.1.2269-1ubuntu5.32]
+vim-runtime/now 2:8.1.2269-1ubuntu5.14 all [installed,upgradable to: 2:8.1.2269-1ubuntu5.32]
+vim/now 2:8.1.2269-1ubuntu5.14 amd64 [installed,upgradable to: 2:8.1.2269-1ubuntu5.32]
+wget/now 1.20.3-1ubuntu2 amd64 [installed,upgradable to: 1.20.3-1ubuntu2.1]
+x11-common/focal,now 1:7.7+19ubuntu14 all [installed,automatic]
+x11proto-core-dev/focal,now 2019.2-1ubuntu1 all [installed,automatic]
+x11proto-dev/focal,now 2019.2-1ubuntu1 all [installed,automatic]
+xauth/focal,now 1:1.1-0ubuntu1 amd64 [installed,automatic]
+xdg-user-dirs/focal,now 0.17-2ubuntu1 amd64 [installed,automatic]
+xorg-sgml-doctools/focal,now 1:1.11-1 all [installed,automatic]
+xtrans-dev/focal,now 1.4.0-1 all [installed,automatic]
+xxd/now 2:8.1.2269-1ubuntu5.14 amd64 [installed,upgradable to: 2:8.1.2269-1ubuntu5.32]
+xz-utils/focal-updates,focal-security,now 5.2.4-1ubuntu1.1 amd64 [installed,automatic]
+zip/focal,now 3.0-11build1 amd64 [installed]
+zlib1g-dev/focal-updates,focal-security,now 1:1.2.11.dfsg-2ubuntu1.5 amd64 [installed,automatic]
+zlib1g/focal-updates,focal-security,now 1:1.2.11.dfsg-2ubuntu1.5 amd64 [installed]
+
+--- [ 2.5 编译器版本 ] ---
+>>> GCC Version:
+gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+>>> G++ Version:
+g++ (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+>>> NVCC (CUDA Compiler) Version:
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2022 NVIDIA Corporation
+Built on Tue_Mar__8_18:18:20_PST_2022
+Cuda compilation tools, release 11.6, V11.6.124
+Build cuda_11.6.r11.6/compiler.31057947_0
+
+======================================================================
