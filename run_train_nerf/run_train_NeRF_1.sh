@@ -22,11 +22,9 @@ OUTPUT_ROOT=/hy-tmp/VIAT_outputs
 list=(01 03)
 num=0
 
-for j in airliner rifle
-#for j in airliner rifle barbell barrel garden_cart basketball bow cannon
+for j in airliner rifle barbell barrel garden_cart basketball bow cannon
 do 
-    #for i in 01 02 03 04 05 06 07 08 09
-    for i in 01 02
+    for i in 01 02 03 04 05 06 07 08 09
     do 
         PYTHONPATH=$PYTHONPATH:.. python ../viat/train.py \
             --output_dir ${OUTPUT_ROOT} \
