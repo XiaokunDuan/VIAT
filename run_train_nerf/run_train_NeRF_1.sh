@@ -18,8 +18,7 @@ OUTPUT_ROOT=/hy-tmp/VIAT_outputs
 # barbell barrel basketball bike bow cannon catamaran
 # 01 02 03 04 05 06 07 08
 
-#list=(01 03 04 06 07 08 10 12)
-list=(01 03)
+list=(01 03 04 06 07 08 10 12)
 num=0
 
 for j in airliner rifle barbell barrel garden_cart basketball bow cannon
