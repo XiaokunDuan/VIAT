@@ -187,7 +187,8 @@ class NeRFSystem(LightningModule):
     def on_validation_start(self):
         torch.cuda.empty_cache()
         if not self.hparams.no_save_test:
-            self.val_dir = f'results/{self.hparams.dataset_name}/{self.hparams.exp_name}'
+            self.val_dir = os.path.join(self.hparams.output_dir, 
+                                        f'results/{self.hparams.dataset_name}/{self.hparams.exp_name}')
             os.makedirs(self.val_dir, exist_ok=True)
 
     def validation_step(self, batch, batch_nb):
@@ -249,7 +250,10 @@ if __name__ == '__main__':
         raise ValueError('You need to provide a @ckpt_path for validation!')
     system = NeRFSystem(hparams)
 
-    ckpt_cb = ModelCheckpoint(dirpath=f'ckpts/{hparams.dataset_name}/{hparams.exp_name}',
+    ckpt_dir = os.path.join(hparams.output_dir, 
+                            f'ckpts/{hparams.dataset_name}/{hparams.exp_name}')
+
+    ckpt_cb = ModelCheckpoint(dirpath=ckpt_dir,
                               filename='{epoch:d}',
                               save_weights_only=True,
                               every_n_epochs=hparams.num_epochs,
@@ -257,7 +261,8 @@ if __name__ == '__main__':
                               save_top_k=-1)
     callbacks = [ckpt_cb, TQDMProgressBar(refresh_rate=1)]
 
-    logger = TensorBoardLogger(save_dir=f"logs/{hparams.dataset_name}",
+    logger_save_dir = os.path.join(hparams.output_dir, f"logs/{hparams.dataset_name}")
+    logger = TensorBoardLogger(save_dir=logger_save_dir,
                                name=hparams.exp_name,
                                default_hp_metric=False)
 
@@ -278,20 +283,20 @@ if __name__ == '__main__':
     
 
      # save slimmed ckpt for the last epoch
-    ckpt_ = \
-        slim_ckpt(f'ckpts/{hparams.dataset_name}/{hparams.exp_name}/epoch={hparams.num_epochs-1}.ckpt',
-                      save_poses=hparams.optimize_ext)
+    last_ckpt_path = os.path.join(ckpt_dir, f'epoch={hparams.num_epochs-1}.ckpt')
 
-    os.remove(f'ckpts/{hparams.dataset_name}/{hparams.exp_name}/epoch={hparams.num_epochs-1}.ckpt')
+    ckpt_ = slim_ckpt(last_ckpt_path, save_poses=hparams.optimize_ext)
+    
+    os.remove(last_ckpt_path)
 
-    exist = os.listdir(f'ckpts/{hparams.dataset_name}/{hparams.exp_name}/')
+    exist = os.listdir(ckpt_dir)
     if len(exist)==0:
         file_idx = 0
     else:
         file_idx = len(exist)
     file_idx = str('%02d' % file_idx)
     
-    torch.save(ckpt_, f'ckpts/{hparams.dataset_name}/{hparams.exp_name}/{file_idx}.ckpt')
+    torch.save(ckpt_, os.path.join(ckpt_dir, f'{file_idx}.ckpt'))
         
 
     if (not hparams.no_save_test) and \

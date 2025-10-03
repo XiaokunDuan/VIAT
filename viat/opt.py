@@ -3,6 +3,11 @@ import argparse
 def get_opts():
     parser = argparse.ArgumentParser()
 
+    # 更改根目录方便放数据
+    parser.add_argument('--output_dir', type=str,
+                        default='.',
+                        help='root directory for all outputs (ckpts, logs, results)')
+
     # dataset parameters
     parser.add_argument('--root_dir', type=str, required=True,
                         help='root directory of dataset')
