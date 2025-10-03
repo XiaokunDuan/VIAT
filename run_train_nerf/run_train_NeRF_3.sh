@@ -29,7 +29,7 @@ do
             --output_dir ${OUTPUT_ROOT} \
             --dataset_name nerf \
             --root_dir /hy-tmp/GMFool_dataset/${j}_${i}  \
-            --exp_name new/test/${list[$num]} \
+            --exp_name test/${list[$num]} \
             --num_epochs 10 \
             --batch_size 16384 \
             --lr 1e-2
@@ -41,7 +41,7 @@ do
             --output_dir ${OUTPUT_ROOT} \
             --dataset_name nerf \
             --root_dir /hy-tmp/GMFool_dataset/${j}_${i}  \
-            --exp_name new/test/${list[$num]} \
+            --exp_name test/${list[$num]} \
             --num_epochs 10 \
             --batch_size 16384 \
             --lr 1e-2

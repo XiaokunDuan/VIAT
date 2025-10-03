@@ -329,7 +329,7 @@ resume_path='/HOME/scz1972/.cache/torch/hub/checkpoints/other/resnet50_l2_eps5.c
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.eval()
 
-    with open("/HOME/scz1972/run/rsw_/NeRFAttack/classifier/imagenet_classes.txt") as f:
+    with open("classifier/imagenet_classes.txt") as f:
         classes = [line.strip() for line in f.readlines()]
 
 

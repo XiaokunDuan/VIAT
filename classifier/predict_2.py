@@ -219,7 +219,7 @@ def test_baseline(path, label, model, is_mean=False):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.eval()
 
-    with open("/HOME/scz1972/run/rsw_/NeRFAttack/classifier/imagenet_classes.txt") as f:
+    with open("classifier/imagenet_classes.txt") as f:
         classes = [line.strip() for line in f.readlines()]
 
 

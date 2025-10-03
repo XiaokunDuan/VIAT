@@ -14,20 +14,12 @@ echo "开始运行攻击脚本..."
 
 # 使用绝对路径运行Python脚本
 python viat/Attack_exp_fast_K.py \
-    \
-    # ------------------- 数据集和NeRF模型相关路径 -------------------
-    # 1. NeRF数据集的根目录 (用于加载相机参数，以airliner_01为例)
-    --root_dir '/hy-tmp/VIAT/datasets/GMFool_dataset/airliner_01' \
-    \
-    # 2. 任意一个NeRF模型的检查点路径 (用于初始化)
-    --ckpt_path '/hy-tmp/VIAT/run_train_nerf/ckpts/nerf/train/00/00.ckpt' \
-    \
-    # 3. [最关键!] 所有NeRF检查点的根目录 (指向train/test的父目录)
+    --root_dir '/hy-tmp/GMFool_dataset/airliner_01' \
+    --ckpt_path '/hy-tmp/VIAT_outputs/ckpts/nerf/train/01/00.ckpt' \
     --ckpt_attack_path '/hy-tmp/VIAT/run_train_nerf/ckpts/nerf' \
-    \
-    # ------------------- 脚本运行参数 -------------------
+    --output_dir '/hy-tmp/VIAT_outputs' \
     --dataset_name nerf_for_attack \
-    --scene_name 'results_resnet_GMM_hotdog' \
+    --scene_name 'attack_on_resnet50_k5' \
     --N_importance 64 \
     --optim_method NES \
     --search_num 6 \

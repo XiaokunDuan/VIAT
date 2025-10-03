@@ -74,7 +74,7 @@ def test_baseline(path, label, model='resnet', is_mean=False):
 
     model.eval()
 
-    with open("/data/home/scv7303/run/rsw_/NeRFAttack/classifier/imagenet_classes.txt") as f:
+    with open("classifier/imagenet_classes.txt") as f:
         classes = [line.strip() for line in f.readlines()]
 
 

@@ -54,7 +54,7 @@ def render_image(all_args, labels, objects, is_over=False, split='train'):
     """
 
     dataset = dataset_dict['nerf_for_attack'](
-        root_dir='/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/dataset_source/viewfool/hotdog',
+        root_dir=args.root_dir, 
         split='AT', downsample=0.5, all_args=all_args, is_over=is_over
     )
     model = NGP(scale=0.5).cuda()
@@ -515,7 +515,7 @@ def main():
 
     if args.treat_model == 'resnet50':
         model = torchvision.models.resnet50(pretrained=False)
-        checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-res50-epoch120.pt'
+        checkpoint = '/hy-tmp/model-imagenet-100-ckpts/model-res50-epoch120.pt'
         #----------------------------------------------
         num_ftr = model.fc.in_features
         model.fc = nn.Linear(num_ftr,100)

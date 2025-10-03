@@ -1,9 +1,4 @@
 from __future__ import print_function
-
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 import os
 import argparse
 import torch
@@ -23,19 +18,6 @@ from metrics import psnr
 
 from tqdm import tqdm
 from datasets import dataset_dict
-# --- BEGIN: PATH CORRECTION BLOCK ---
-import sys
-import os
-
-# 强制将项目根目录（即当前脚本所在目录的上一级）插入到sys.path的最前面
-# 这确保了无论如何，根目录都是模块搜索的最高优先级
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-if sys.path[0] != project_root:
-    sys.path.insert(0, project_root)
-    print(f"--- PATH CORRECTION: Moved project root to the front of sys.path ---")
-    print(f"[*] New sys.path[0]: {sys.path[0]}")
-
-# --- END: PATH CORRECTION BLOCK ---
 from datasets.ray_utils import get_rays
 from utils import load_ckpt
 from train import depth2img
@@ -384,15 +366,15 @@ if not os.path.exists(model_dir):
 use_cuda = not args.no_cuda and torch.cuda.is_available()
 torch.manual_seed(args.seed)
 device = torch.device("cuda" if use_cuda else "cpu")
-gpus = [0] 
+gpus = [0, 1, 2, 3]
 # gpus = [0, 1, 2, 3]
 
 kwargs = {'num_workers': 10*len(gpus), 'pin_memory': True} if use_cuda else {}
 
 # setup data loader
 
-traindir = '/hy-tmp/VIAT/datasets/ImageNet-V+/train' # 您的训练集路径
-valdir = '/hy-tmp/VIAT/datasets/ImageNet-V+/val'     # 您的验证集路径
+traindir = '/hy-tmp/imagenet/train'
+valdir = '/hy-tmp/imagenet/val'
 
 train_dataset = datasets.ImageFolder(
         traindir,
@@ -675,49 +657,31 @@ def adjust_learning_rate(optimizer, epoch):
 
 def main():
     # init model, ResNet18() can be also used here for training
-    # if args.treat_model == 'resnet50':
-    #     # model = torchvision.models.resnet50(pretrained=False)
-    #     # # checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-resnet50-final_res_viatvf_R-epoch60.pt'
-    #     # checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-res50-epoch120.pt'
-    #     # #----------------------------------------------
-    #     # num_ftr = model.fc.in_features
-    #     # model.fc = nn.Linear(num_ftr,100)
-    #     # #----------------------------------------------
     if args.treat_model == 'resnet50':
-        print("Loading ImageNet pre-trained ResNet-50 model...")
-        # 1. 加载预训练模型，pretrained=True 会自动下载权重
-        model = torchvision.models.resnet50(pretrained=True) 
-
-        # 2. 获取最后一层全连接层的输入特征数
+        model = torchvision.models.resnet50(pretrained=False)
+        # checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-resnet50-final_res_viatvf_R-epoch60.pt'
+        checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-res50-epoch120.pt'
+        #----------------------------------------------
         num_ftr = model.fc.in_features
-        
-        # 3. [关键!] 替换最后一层，以适应你的5分类任务
-        #    将原来的1000类输出改为5类输出
-        NUM_CLASSES = 5 # 你的类别数量
-        model.fc = nn.Linear(num_ftr, NUM_CLASSES)
-        print(f"Model's final layer replaced for {NUM_CLASSES} classes.")
+        model.fc = nn.Linear(num_ftr,100)
+        #----------------------------------------------
 
-    elif args.treat_model == 'inc-v3':
-        # 如果你要测试其他模型，也可以在这里添加类似逻辑
-        # ...
-        pass # 暂时忽略其他模型
-
-    # if args.treat_model == 'inc-v3':
-    #     model = torchvision.models.inception_v3(pretrained=False)
-    #     checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-inc-v3-inc-v3_pre_train-epoch120.pt'
-    #     #----------------------------------------------
-    #     num_ftr = model.fc.in_features
-    #     model.fc = nn.Linear(num_ftr,100)
-    #     #----------------------------------------------
+    if args.treat_model == 'inc-v3':
+        model = torchvision.models.inception_v3(pretrained=False)
+        checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-inc-v3-inc-v3_pre_train-epoch120.pt'
+        #----------------------------------------------
+        num_ftr = model.fc.in_features
+        model.fc = nn.Linear(num_ftr,100)
+        #----------------------------------------------
     
-    # if args.treat_model == 'vit-b':
-    #     model = timm.create_model('vit_base_patch16_224', pretrained=False, num_classes=100)
-    #     checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-vit-b-final_vit_viatvf_R-epoch60.pt'
-    #     # checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-vit-b-final_vit_random-epoch20.pt'
+    if args.treat_model == 'vit-b':
+        model = timm.create_model('vit_base_patch16_224', pretrained=False, num_classes=100)
+        checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-vit-b-final_vit_viatvf_R-epoch60.pt'
+        # checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-vit-b-final_vit_random-epoch20.pt'
 
 
-    # if args.train_mood == 'AT':
-    #     model.load_state_dict(torch.load(checkpoint))
+    if args.train_mood == 'AT':
+        model.load_state_dict(torch.load(checkpoint))
         
     model = model.to(device)
     model = torch.nn.DataParallel(model, device_ids=gpus, output_device=gpus[0])

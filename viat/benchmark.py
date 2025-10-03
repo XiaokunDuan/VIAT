@@ -154,7 +154,7 @@ def get_black_model(model_name):
     # VIAT
     if model_name == 'resnet50-standard':
         model = timm.create_model('resnet50', pretrained=True, num_classes=100)
-        checkpoint = '/data/home/scv7303/run/rsw_/NeRFAttack/ngp_pl/model-imagenet-100-ckpts/model-res50-epoch120.pt'
+        checkpoint = '/hy-tmp/model-imagenet-100-ckpts/model-res50-epoch120.pt'
         model.load_state_dict(torch.load(checkpoint))
 
     if model_name == 'resnet50-VIAT-gf':
