@@ -1,0 +1,189 @@
+# VIAT-YOLO Configuration
+# 场景级旋转鲁棒训练配置文件
+
+# ============== YOLO模型配置 ==============
+yolo:
+  # 选择YOLO模型版本
+  # 选项: 'yolov8n.pt', 'yolov8s.pt', 'yolov8m.pt', 'yolov8l.pt', 'yolov8x.pt'
+  #      'yolov9c.pt', 'yolov9e.pt'
+  #      'yolov8x-worldv2.pt' (支持开放词汇检测)
+  model: 'yolov8x.pt'
+
+  # 是否在场景数据上微调
+  finetune: true
+  finetune_epochs: 30
+
+  # 预训练模型适配策略
+  adaptation_strategy: 'coco_to_scene'  # 选项: 'coco_to_scene', 'finetune_all', 'freeze_backbone'
+
+  # YOLO数据配置文件（需要创建）
+  data_yaml: './data/replica_yolo_detection.yaml'
+
+  # 类别映射（COCO类别 -> 场景类别）
+  class_mapping:
+    # Replica常见物体
+    chair: [56]           # COCO chair
+    couch: [57]           # COCO couch
+    bed: [59]             # COCO bed
+    dining_table: [60]    # COCO dining table
+    tv: [62]              # COCO tv
+    laptop: [63]          # COCO laptop
+    keyboard: [66]        # COCO keyboard
+    mouse: [64]           # COCO mouse
+    book: [73]            # COCO book
+    clock: [74]           # COCO clock
+    vase: [75]            # COCO vase
+    # 可以添加更多
+
+# ============== GS3LAM场景配置 ==============
+gs3lam:
+  # 场景数据目录
+  scene_data_dir: './data/Replica'
+
+  # 场景列表（留空则使用所有场景）
+  scenes:
+    - 'room0'
+    - 'room1'
+    - 'office0'
+    - 'office1'
+    # 添加更多场景...
+
+  # GS3LAM checkpoint路径（如果已训练）
+  checkpoint_dir: './GS3LAM/outputs'
+
+  # 渲染配置
+  image_size: [680, 1200]  # [H, W] - Replica默认
+  render_semantic: true
+
+  # 场景预处理
+  preprocess:
+    # 是否运行GS3LAM重建（如果checkpoint不存在）
+    run_slam_if_needed: true
+    # SLAM配置文件
+    slam_config_dir: './GS3LAM/configs/Replica'
+
+# ============== GMVFool攻击配置 ==============
+gmvfool:
+  # 高斯混合分量数
+  num_components: 15
+
+  # 熵正则化系数
+  lambda_entropy: 0.01
+
+  # 蒙特卡洛采样数
+  num_samples: 100
+
+  # 视角参数范围（相对于初始视角）
+  viewpoint_range:
+    yaw: [-180, 180]      # 度
+    pitch: [-30, 30]      # 度
+    roll: [-30, 30]       # 度
+    x: [-2.0, 2.0]        # 米
+    y: [-2.0, 2.0]        # 米
+    z: [-2.0, 2.0]        # 米
+
+  # 优化配置
+  learning_rate: 0.01
+  phase1_iterations: 50   # 阶段1粗优化
+  phase2_iterations: 10   # 阶段2精优化
+
+# ============== VIAT训练配置 ==============
+training:
+  # 训练epochs
+  num_epochs: 60
+
+  # Batch size
+  batch_size: 16
+
+  # 每个epoch训练的场景数（随机采样）
+  scenes_per_epoch: 5
+
+  # 数据比例
+  natural_samples_per_epoch: 512      # 自然视角样本数
+  adversarial_samples_per_epoch: 512  # 对抗视角样本数
+
+  # 分布共享策略
+  distribution_sharing:
+    enabled: true
+    probability: 0.5  # 共享概率π
+
+  # 学习率调度
+  lr_schedule:
+    type: 'cosine'  # 'cosine', 'step', 'constant'
+    initial_lr: 0.01
+    min_lr: 0.0001
+
+  # 优化器
+  optimizer: 'AdamW'
+  weight_decay: 0.0005
+
+  # 早停
+  early_stopping:
+    enabled: true
+    patience: 10
+    metric: 'mAP_adversarial'
+
+# ============== 评估配置 ==============
+evaluation:
+  # 评估频率（每N个epoch）
+  frequency: 5
+
+  # 评估视角数
+  num_test_viewpoints: 50
+
+  # 评估指标
+  metrics:
+    - 'mAP'
+    - 'mAP50'
+    - 'mAP75'
+    - 'precision'
+    - 'recall'
+
+  # 可视化
+  visualize:
+    enabled: true
+    num_samples: 20
+    save_dir: './outputs/visualizations'
+
+# ============== 输出配置 ==============
+output:
+  # 输出目录
+  base_dir: './outputs/viat_yolo'
+
+  # 保存配置
+  save:
+    checkpoints: true
+    checkpoint_frequency: 10  # 每N个epoch保存
+    best_model: true
+    adversarial_distributions: true
+    training_logs: true
+
+  # 日志
+  logging:
+    use_tensorboard: true
+    use_wandb: false
+    wandb_project: 'VIAT-YOLO'
+    log_frequency: 100  # 每N个iteration
+
+# ============== 实验配置 ==============
+experiment:
+  name: 'viat_yolo_replica_v1'
+  seed: 42
+  deterministic: true
+
+  # 调试模式
+  debug:
+    enabled: false
+    quick_test: false  # 快速测试（使用少量数据）
+    num_scenes: 2      # 调试模式下的场景数
+
+# ============== 硬件配置 ==============
+hardware:
+  device: 'cuda'  # 'cuda', 'cpu', 'cuda:0'
+  num_workers: 4
+  pin_memory: true
+
+  # 混合精度训练
+  mixed_precision:
+    enabled: true
+    opt_level: 'O1'
